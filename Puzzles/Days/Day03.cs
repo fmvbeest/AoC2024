@@ -7,6 +7,15 @@ public partial class Day03 : PuzzleBase<string, int, int>
 {
     protected override string Filename => "Input/day03.txt";
     protected override string PuzzleTitle => "--- Day 3: Mull It Over ---";
+    
+    [GeneratedRegex(@"mul\([0-9]{1,3},[0-9]{1,3}\)", RegexOptions.Compiled)]
+    private static partial Regex MulRegex();
+    
+    [GeneratedRegex(@"(mul\([0-9]{1,3},[0-9]{1,3}\))|(do\(\))|(don\'t\(\))", RegexOptions.Compiled)]
+    private static partial Regex MulDoDontRegex();
+    
+    [GeneratedRegex(@"\d+", RegexOptions.Compiled)]
+    private static partial Regex MulFormatRegex();
 
     public override int PartOne(string input)
     {
@@ -44,13 +53,4 @@ public partial class Day03 : PuzzleBase<string, int, int>
     {
         return input.GetText();
     }
-
-    [GeneratedRegex(@"mul\([0-9]{1,3},[0-9]{1,3}\)", RegexOptions.Compiled)]
-    private static partial Regex MulRegex();
-    
-    [GeneratedRegex(@"(mul\([0-9]{1,3},[0-9]{1,3}\))|(do\(\))|(don\'t\(\))", RegexOptions.Compiled)]
-    private static partial Regex MulDoDontRegex();
-    
-    [GeneratedRegex(@"\d+", RegexOptions.None)]
-    private static partial Regex MulFormatRegex();
 }
