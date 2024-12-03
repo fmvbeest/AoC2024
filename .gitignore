@@ -1,0 +1,9 @@
+﻿bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.idea
+AoC2024.sln.DotSettings.user
+Tests/Input
+Puzzles/Input
