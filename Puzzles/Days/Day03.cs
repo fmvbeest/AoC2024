@@ -20,13 +20,10 @@ public partial class Day03 : PuzzleBase<string, int, int>
     public override int PartOne(string input)
     {
         var sum = 0;
-        
         foreach (Match match in MulRegex().Matches(input))
         {
-            sum += match.Value.Replace("mul(", "").Replace(")", "").Split(',')
-                .Select(int.Parse).Aggregate(1, (x,y) => x * y);
+            sum += GetResultFromMatch(match);
         }
-        
         return sum;
     }
 
@@ -41,12 +38,17 @@ public partial class Day03 : PuzzleBase<string, int, int>
             {
                 case "do()": enabled = true; break;
                 case "don't()": enabled = false; break;
-                case "mul(,)" when enabled: sum += match.Value.Replace("mul(", "").Replace(")", "").Split(',')
-                    .Select(int.Parse).Aggregate(1, (x,y) => x * y); break; 
+                case "mul(,)" when enabled: sum += GetResultFromMatch(match); break; 
             }
         }
         
         return sum;
+    }
+
+    private static int GetResultFromMatch(Match match)
+    {
+        return match.Value.Replace("mul(", "").Replace(")", "").Split(',')
+            .Select(int.Parse).Aggregate(1, (x,y) => x * y);
     }
     
     public override string Preprocess(IPuzzleInput input, int part = 1)
