@@ -112,9 +112,15 @@ public class Grid2D
         return coordinate.X >= 0 && coordinate.X < X && coordinate.Y >= 0 && coordinate.Y < Y;
     }
 
-    public IEnumerable<Coordinate> GetNeighboursWithValue(Coordinate coordinate, char c)
+    public IEnumerable<Coordinate> GetNeighboursWithValue(Coordinate coordinate, char c, bool diagonal = true)
     {
-        return coordinate.Neighbours(diagonal: false).Where(OnGrid)
+        return coordinate.Neighbours(diagonal).Where(OnGrid)
+            .Where(coordinate1 => GetValue(coordinate1) == _charToIntMap[c]);
+    }
+    
+    public IEnumerable<Coordinate> GetNeighboursDiagonalWithValue(Coordinate coordinate, char c, bool diagonal = true)
+    {
+        return coordinate.NeighboursDiagonal().Where(OnGrid)
             .Where(coordinate1 => GetValue(coordinate1) == _charToIntMap[c]);
     }
 

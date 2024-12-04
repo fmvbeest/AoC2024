@@ -12,19 +12,19 @@ public class TestDay04
     [Fact]
     public void TestPartOneSample()
     {
-        Assert.Equal(0, _puzzle.PartOne(_puzzle.Preprocess(_testInput)));
+        Assert.Equal(18, _puzzle.PartOne(_puzzle.Preprocess(_testInput)));
     }
 
     [Fact]
     public void TestPartOneActual()
     {
-        Assert.Equal(0, _puzzle.PartOne(_puzzle.Preprocess(_puzzleInput)));
+        Assert.Equal(2543, _puzzle.PartOne(_puzzle.Preprocess(_puzzleInput)));
     }
 
     [Fact]
     public void TestPartTwoSample()
     {
-        Assert.Equal(0, _puzzle.PartTwo(_puzzle.Preprocess(_testInput)));
+        Assert.Equal(9, _puzzle.PartTwo(_puzzle.Preprocess(_testInput)));
     }
 
     [Fact]

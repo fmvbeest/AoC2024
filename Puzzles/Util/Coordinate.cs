@@ -52,6 +52,11 @@ public class Coordinate : IEquatable<Coordinate>
 
         return neighbours;
     }
+    
+    public IEnumerable<Coordinate> NeighboursDiagonal()
+    {
+        return new List<Coordinate> { (X - 1, Y - 1), (X - 1, Y + 1), (X + 1, Y + 1), (X + 1, Y - 1) };;
+    }
 
     public static implicit operator Coordinate((int x, int y) tuple)
     {
