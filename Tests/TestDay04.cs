@@ -30,6 +30,6 @@ public class TestDay04
     [Fact]
     public void TestPartTwoActual()
     {
-        Assert.Equal(0, _puzzle.PartTwo(_puzzle.Preprocess(_puzzleInput)));
+        Assert.Equal(1930, _puzzle.PartTwo(_puzzle.Preprocess(_puzzleInput)));
     }
 }

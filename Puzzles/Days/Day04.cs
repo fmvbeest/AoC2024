@@ -30,7 +30,7 @@ public class Day04 : PuzzleBase<IEnumerable<string>, int, int>
         return xs.Count(x => IsXmas2(grid, x));
     }
 
-    private int IsXmas(Grid2D grid, Coordinate c)
+    private static int IsXmas(Grid2D grid, Coordinate c)
     {
         var xmas = 0;
         
@@ -55,22 +55,20 @@ public class Day04 : PuzzleBase<IEnumerable<string>, int, int>
             if (posSValue != 4) continue;
 
             xmas += 1;
-
         }
         
         return xmas;
     }
     
-    private bool IsXmas2(Grid2D grid, Coordinate c)
+    private static bool IsXmas2(Grid2D grid, Coordinate a)
     {
-        var ms = grid.GetNeighboursDiagonalWithValue(c, 'M').ToArray();
+        var ms = grid.GetNeighboursDiagonalWithValue(a, 'M').ToArray();
 
         if (ms.Length != 2) return false;
         
         foreach (var m in ms)
         {
-            var diff = m - c;
-            var posS = c - diff;
+            var posS = a - (m - a);
             
             if (!grid.OnGrid(posS)) return false;
             
