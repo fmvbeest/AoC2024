@@ -63,7 +63,7 @@ public class Day04 : PuzzleBase<IEnumerable<string>, int, int>
     
     private bool IsXmas2(Grid2D grid, Coordinate c)
     {
-        var ms = grid.GetNeighboursWithValue(c, 'M').ToArray();
+        var ms = grid.GetNeighboursDiagonalWithValue(c, 'M').ToArray();
 
         if (ms.Length != 2) return false;
         
