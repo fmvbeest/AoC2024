@@ -19,19 +19,13 @@ public class Day01 : PuzzleBase<(int[] a, int[] b), int, int>
 
     public override (int[] a, int[] b) Preprocess(IPuzzleInput input, int part = 1)
     {
-        var inputLines = input.GetAllLines().ToArray();
-        var a = new int[inputLines.Length];
-        var b = new int[inputLines.Length];
-
-        for (var i = 0; i < inputLines.Length; i++)
-        {
-            var parts = inputLines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            a[i] = int.Parse(parts[0]);
-            b[i] = int.Parse(parts[1]);
-        }
-
-        Array.Sort(a);
-        Array.Sort(b);
+        var cleanInput = input.GetAllLines()
+            .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            .ToArray();
+        
+        var a = cleanInput.Select(x => int.Parse(x[0])).Order().ToArray();
+        var b = cleanInput.Select(x => int.Parse(x[1])).Order().ToArray();
+        
         return (a, b);
     }
 }
