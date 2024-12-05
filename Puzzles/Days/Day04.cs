@@ -10,15 +10,15 @@ public class Day04 : PuzzleBase<Grid2D, int, int>
     
     public override int PartOne(Grid2D grid)
     {
-        return grid.GetMappedValues('X').Sum(x => IsMasMas(grid, x));
+        return grid.GetMappedValues('X').Sum(x => IsXmas(grid, x));
     }
 
     public override int PartTwo(Grid2D grid)
     {
-        return grid.GetMappedValues('A').Count(x => IsXmas2(grid, x));
+        return grid.GetMappedValues('A').Count(x => IsMasMas(grid, x));
     }
 
-    private static int IsMasMas(Grid2D grid, Coordinate c)
+    private static int IsXmas(Grid2D grid, Coordinate c)
     {
         var xmas = 0;
         
@@ -48,7 +48,7 @@ public class Day04 : PuzzleBase<Grid2D, int, int>
         return xmas;
     }
     
-    private static bool IsXmas2(Grid2D grid, Coordinate a)
+    private static bool IsMasMas(Grid2D grid, Coordinate a)
     {
         var ms = grid.GetNeighboursDiagonalWithValue(a, 'M').ToArray();
 
