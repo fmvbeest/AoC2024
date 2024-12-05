@@ -36,8 +36,7 @@ public class Day04 : PuzzleBase<Grid2D, int, int>
 
     public override Grid2D Preprocess(IPuzzleInput input, int part = 1)
     {
-        var map = new Dictionary<char, int> { ['X'] = 1, ['M'] = 2, ['A'] = 3, ['S'] = 4 };
-
-        return new Grid2D(input.GetAllLines(), map);;
+        return new Grid2D(input.GetAllLines(), 
+            new Dictionary<char, int> { ['X'] = 1, ['M'] = 2, ['A'] = 3, ['S'] = 4 });
     }
 }
