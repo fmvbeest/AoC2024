@@ -29,20 +29,9 @@ public class Day04 : PuzzleBase<Grid2D, int, int>
     {
         var ms = grid.GetNeighboursDiagonalWithValue(a, 'M').ToArray();
 
-        if (ms.Length != 2) return false;
-        
-        foreach (var m in ms)
-        {
-            var posS = a - (m - a);
-            
-            if (!grid.OnGrid(posS)) return false;
-            
-            var posSValue = grid.GetValue(posS);
-
-            if (posSValue != 4) return false;
-        }
-        
-        return true;
+        return ms.Length == 2 && 
+               ms.Select(m => grid.GetStringValueInDirection(m, -(m - a), 2))
+                   .All(s => s.Equals("AS"));
     }
 
     public override Grid2D Preprocess(IPuzzleInput input, int part = 1)
