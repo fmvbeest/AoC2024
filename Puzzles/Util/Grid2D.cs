@@ -9,12 +9,18 @@ public class Grid2D
     private readonly int[,] _grid;
 
     private readonly Dictionary<char, int> _charToIntMap;
+    private readonly Dictionary<int, char> _intToCharMap;
 
     public Grid2D(IEnumerable<string> input, Dictionary<char, int> charToIntMap)
     {
         var array = input.ToArray();
         _grid = new int[array.Length, array[0].Length];
         _charToIntMap = charToIntMap;
+        _intToCharMap = new Dictionary<int, char>();
+        foreach (var (key, value) in _charToIntMap)
+        {
+            _intToCharMap.Add(value, key);
+        }
         
         Init(array);
     }
@@ -24,9 +30,11 @@ public class Grid2D
         var array = input.ToArray();
         _grid = new int[array.Length, array[0].Length];
         _charToIntMap = new Dictionary<char, int>();
+        _intToCharMap = new Dictionary<int, char>();
         for (var i = 0; i < chars.Length; i++)
         {
             _charToIntMap.Add(chars[i], i);
+            _intToCharMap.Add(i, chars[i]);
         }
         
         Init(array);
@@ -35,6 +43,7 @@ public class Grid2D
     public Grid2D(IEnumerable<string> input)
     {
         _charToIntMap = new Dictionary<char, int>();
+        _intToCharMap = new Dictionary<int, char>();
         var array = input.ToArray();
         var n = array.Length;
         var m = array[0].Length;
@@ -127,5 +136,18 @@ public class Grid2D
     public void SetGridValue(Coordinate coordinate, char c)
     {
         _grid[coordinate.X, coordinate.Y] = _charToIntMap[c];
+    }
+
+    public string GetStringValueInDirection(Coordinate coordinate, Coordinate direction, int length)
+    {
+        var result = string.Empty;
+
+        for (var i = 1; i <= length; i++)
+        {
+            var pos = coordinate + (direction.X * i, direction.Y * i);
+            result += OnGrid(pos) ? _intToCharMap[GetValue(pos)] : string.Empty;    
+        }
+        
+        return result;
     }
 }

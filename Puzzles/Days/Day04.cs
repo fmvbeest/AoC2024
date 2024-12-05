@@ -20,32 +20,9 @@ public class Day04 : PuzzleBase<Grid2D, int, int>
 
     private static int IsXmas(Grid2D grid, Coordinate c)
     {
-        var xmas = 0;
-        
-        var ms = grid.GetNeighboursWithValue(c, 'M');
-
-        foreach (var m in ms)
-        {
-            var diff = m - c;
-            var posA = m + diff;
-            
-            if (!grid.OnGrid(posA)) continue;
-            
-            var posAValue = grid.GetValue(posA);
-
-            if (posAValue != 3) continue;
-
-            var posS = posA + diff;
-            if (!grid.OnGrid(posS)) continue;
-            
-            var posSValue = grid.GetValue(posA + diff);
-            
-            if (posSValue != 4) continue;
-
-            xmas += 1;
-        }
-        
-        return xmas;
+        return grid.GetNeighboursWithValue(c, 'M')
+            .Select(m => grid.GetStringValueInDirection(m, m - c, 2))
+            .Count(resultingString => resultingString.Equals("AS"));
     }
     
     private static bool IsMasMas(Grid2D grid, Coordinate a)
