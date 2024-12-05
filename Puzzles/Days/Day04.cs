@@ -22,7 +22,7 @@ public class Day04 : PuzzleBase<Grid2D, int, int>
     {
         return grid.GetNeighboursWithValue(c, 'M')
             .Select(m => grid.GetStringValueInDirection(m, m - c, 2))
-            .Count(resultingString => resultingString.Equals("AS"));
+            .Count(s => s.Equals("AS"));
     }
     
     private static bool IsMasMas(Grid2D grid, Coordinate a)
