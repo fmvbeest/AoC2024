@@ -3,34 +3,22 @@ using AoC2024.Util;
 
 namespace AoC2024.Days;
 
-public class Day04 : PuzzleBase<IEnumerable<string>, int, int>
+public class Day04 : PuzzleBase<Grid2D, int, int>
 {
     protected override string Filename => "Input/day04.txt";
     protected override string PuzzleTitle => "--- Day 4: Ceres Search ---";
     
-    public override int PartOne(IEnumerable<string> input)
+    public override int PartOne(Grid2D grid)
     {
-        var map = new Dictionary<char, int> { ['X'] = 1, ['M'] = 2, ['A'] = 3, ['S'] = 4 };
-        
-        var grid = new Grid2D(input, map);
-
-        var xs = grid.GetMappedValues('X');
-
-        return xs.Sum(x => IsXmas(grid, x));
+        return grid.GetMappedValues('X').Sum(x => IsMasMas(grid, x));
     }
 
-    public override int PartTwo(IEnumerable<string> input)
+    public override int PartTwo(Grid2D grid)
     {
-        var map = new Dictionary<char, int> { ['X'] = 1, ['M'] = 2, ['A'] = 3, ['S'] = 4 };
-        
-        var grid = new Grid2D(input, map);
-
-        var xs = grid.GetMappedValues('A');
-
-        return xs.Count(x => IsXmas2(grid, x));
+        return grid.GetMappedValues('A').Count(x => IsXmas2(grid, x));
     }
 
-    private static int IsXmas(Grid2D grid, Coordinate c)
+    private static int IsMasMas(Grid2D grid, Coordinate c)
     {
         var xmas = 0;
         
@@ -80,8 +68,12 @@ public class Day04 : PuzzleBase<IEnumerable<string>, int, int>
         return true;
     }
 
-    public override IEnumerable<string> Preprocess(IPuzzleInput input, int part = 1)
+    public override Grid2D Preprocess(IPuzzleInput input, int part = 1)
     {
-        return input.GetAllLines();
+        var map = new Dictionary<char, int> { ['X'] = 1, ['M'] = 2, ['A'] = 3, ['S'] = 4 };
+        
+        var grid = new Grid2D(input.GetAllLines(), map);
+
+        return grid;
     }
 }
