@@ -20,8 +20,6 @@ public class Day06 : PuzzleBase<Grid2D, int, int>
         var directions = new[] {Coordinate.Up, Coordinate.Right, Coordinate.Down, Coordinate.Left};
         var start = grid.GetSingleMappedValue('^');
         var route = Traverse(grid, start, directions).Where(x => !x.Equals(start));
-
-        var sum = 0;
         
         return route.Count(extraObstacle => TraverseWithLoop(grid, start, directions, extraObstacle));
     }
