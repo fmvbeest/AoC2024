@@ -91,6 +91,11 @@ public class Grid2D
         return GetValue(c.X, c.Y);
     }
 
+    public char GetCharValue(Coordinate c)
+    {
+        return _intToCharMap[GetValue(c)];
+    }
+
     public IEnumerable<Coordinate> GetMappedValues(char c, bool singleValue = false)
     {
         var coordinates = new List<Coordinate>();

@@ -34,7 +34,10 @@ public class Coordinate : IEquatable<Coordinate>
     public static Coordinate operator +(Coordinate a, Coordinate b) => new(a.X + b.X, a.Y + b.Y);
     public static Coordinate operator -(Coordinate a, Coordinate b) => a + (-b);
 
-
+    public static Coordinate Up => (-1, 0);
+    public static Coordinate Down => (1, 0);
+    public static Coordinate Left => (0, -1);
+    public static Coordinate Right => (0, 1);
 
     public bool IsAdjacentTo(Coordinate x)
     {
