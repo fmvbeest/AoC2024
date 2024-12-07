@@ -7,6 +7,12 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
     protected override string Filename => "Input/day07.txt";
     protected override string PuzzleTitle => "--- Day 7: Bridge Repair ---";
     
+    private static long Add(long x, long y) => x + y;
+
+    private static long Multiply(long x, long y) => x * y;
+
+    private static long Concatenate(long x, long y) => long.Parse(x.ToString() + y);
+    
     public override long PartOne(IEnumerable<TestInput> input)
     {
         var operators = new[] {Add, Multiply};
@@ -48,12 +54,6 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
 
         return intermediateResults;
     }
-
-    private static long Add(long x, long y) => x + y;
-
-    private static long Multiply(long x, long y) => x * y;
-
-    private static long Concatenate(long x, long y) => long.Parse(x.ToString() + y);
 
     public override IEnumerable<TestInput> Preprocess(IPuzzleInput input, int part = 1)
     {
