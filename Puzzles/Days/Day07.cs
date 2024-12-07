@@ -49,21 +49,12 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
         return intermediateResults;
     }
 
-    private static long Add(long x, long y)
-    {
-        return x + y;
-    }
+    private static long Add(long x, long y) => x + y;
 
-    private static long Multiply(long x, long y)
-    {
-        return x * y;
-    }
+    private static long Multiply(long x, long y) => x * y;
 
-    private static long Concatenate(long x, long y)
-    {
-        return long.Parse(x.ToString() + y);
-    }
-    
+    private static long Concatenate(long x, long y) => long.Parse(x.ToString() + y);
+
     public override IEnumerable<TestInput> Preprocess(IPuzzleInput input, int part = 1)
     {
         return (from line in input.GetAllLines() 
