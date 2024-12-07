@@ -2,7 +2,7 @@
 
 namespace AoC2024.Days;
 
-public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
+public class Day07 : PuzzleBase<IEnumerable<Day07.Equation>, long, long>
 {
     protected override string Filename => "Input/day07.txt";
     protected override string PuzzleTitle => "--- Day 7: Bridge Repair ---";
@@ -13,29 +13,23 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
 
     private static long Concatenate(long x, long y) => long.Parse(x.ToString() + y);
     
-    public override long PartOne(IEnumerable<TestInput> input)
+    public override long PartOne(IEnumerable<Equation> input)
     {
         var operators = new[] {Add, Multiply};
 
-        return (from testInput in input 
-            let results = Test(testInput.Operands, operators, testInput.TestValue) 
-            where results.Contains(testInput.TestValue) 
-            select testInput.TestValue)
-            .Sum();
+        return input.Where(e => Test(e.Operands, operators, e.TestValue))
+            .Sum(e => e.TestValue);
     }
 
-    public override long PartTwo(IEnumerable<TestInput> input)
+    public override long PartTwo(IEnumerable<Equation> input)
     {
         var operators = new[] {Add, Multiply, Concatenate};
 
-        return (from testInput in input 
-            let results = Test(testInput.Operands, operators, testInput.TestValue) 
-            where results.Contains(testInput.TestValue) 
-            select testInput.TestValue)
-            .Sum();
+        return input.Where(e => Test(e.Operands, operators, e.TestValue))
+            .Sum(e => e.TestValue);
     }
 
-    private static List<long> Test(int[] operands, Func<long, long, long>[] operators, long testValue)
+    private static bool Test(int[] operands, Func<long, long, long>[] operators, long testValue)
     {
         var intermediateResults = new List<long> { operands[0] };
         
@@ -54,19 +48,19 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
             intermediateResults = tmp;
         }
 
-        return intermediateResults;
+        return intermediateResults.Contains(testValue);
     }
 
-    public override IEnumerable<TestInput> Preprocess(IPuzzleInput input, int part = 1)
+    public override IEnumerable<Equation> Preprocess(IPuzzleInput input, int part = 1)
     {
         return (from line in input.GetAllLines() 
             select line.Split(':', StringSplitOptions.TrimEntries) into s 
             let testValue = long.Parse(s[0]) 
             let operands = s[1].Split(' ', StringSplitOptions.TrimEntries).Select(int.Parse).ToArray() 
-            select new TestInput(testValue, operands)).ToList();
+            select new Equation(testValue, operands)).ToList();
     }
 
-    public class TestInput(long testValue, int[] operands)
+    public class Equation(long testValue, int[] operands)
     {
         public long TestValue { get; set; } = testValue;
         public int[] Operands { get; set; } = operands;
