@@ -12,7 +12,7 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
         var operators = new[] {Add, Multiply};
 
         return (from testInput in input 
-            let results = Test(testInput.Operands, operators) 
+            let results = Test(testInput.Operands, operators, testInput.TestValue) 
             where results.Contains(testInput.TestValue) 
             select testInput.TestValue).Sum();
     }
@@ -22,12 +22,12 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
         var operators = new[] {Add, Multiply, Concatenate};
 
         return (from testInput in input 
-            let results = Test(testInput.Operands, operators) 
+            let results = Test(testInput.Operands, operators, testInput.TestValue) 
             where results.Contains(testInput.TestValue) 
             select testInput.TestValue).Sum();
     }
 
-    private static IEnumerable<long> Test(int[] operands, Func<long, long, long>[] operators)
+    private static IEnumerable<long> Test(int[] operands, Func<long, long, long>[] operators, long testValue)
     {
         var intermediateResults = new List<long> { operands[0] };
         
@@ -38,10 +38,11 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
             {
                 foreach (var func in operators)
                 {
-                    tmp.Add(func(result,operands[i]));
+                    var res = func(result, operands[i]);
+                    if (res <= testValue)
+                        tmp.Add(res);
                 }
             }
-            intermediateResults.Clear();
             intermediateResults = tmp;
         }
 
