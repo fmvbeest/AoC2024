@@ -20,7 +20,8 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
         return (from testInput in input 
             let results = Test(testInput.Operands, operators, testInput.TestValue) 
             where results.Contains(testInput.TestValue) 
-            select testInput.TestValue).Sum();
+            select testInput.TestValue)
+            .Sum();
     }
 
     public override long PartTwo(IEnumerable<TestInput> input)
@@ -30,10 +31,11 @@ public class Day07 : PuzzleBase<IEnumerable<Day07.TestInput>, long, long>
         return (from testInput in input 
             let results = Test(testInput.Operands, operators, testInput.TestValue) 
             where results.Contains(testInput.TestValue) 
-            select testInput.TestValue).Sum();
+            select testInput.TestValue)
+            .Sum();
     }
 
-    private static IEnumerable<long> Test(int[] operands, Func<long, long, long>[] operators, long testValue)
+    private static List<long> Test(int[] operands, Func<long, long, long>[] operators, long testValue)
     {
         var intermediateResults = new List<long> { operands[0] };
         
