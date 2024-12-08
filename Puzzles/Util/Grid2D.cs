@@ -55,8 +55,11 @@ public class Grid2D
             var index = 0;
             foreach (var c in s)
             {
-                _grid[row, index] = c - '0';
+                var intValue = c - '0';
+                _grid[row, index] = intValue;
                 index++;
+                _charToIntMap.TryAdd(c, intValue);
+                _intToCharMap.TryAdd(intValue, c);
             }
 
             row++;
@@ -154,5 +157,10 @@ public class Grid2D
         }
         
         return result;
+    }
+
+    public char[] GetDistinctCharValues()
+    {
+        return _charToIntMap.Keys.ToArray();
     }
 }
