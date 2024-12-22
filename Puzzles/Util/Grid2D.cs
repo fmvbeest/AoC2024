@@ -1,4 +1,6 @@
-﻿namespace AoC2024.Util;
+﻿using System.Text;
+
+namespace AoC2024.Util;
 
 public class Grid2D
 {
@@ -23,6 +25,25 @@ public class Grid2D
         }
         
         Init(array);
+    }
+    
+    public Grid2D(int width, int height, Dictionary<char, int> charToIntMap, char initialChar)
+    {
+        _grid = new int[width, height];
+        _charToIntMap = charToIntMap;
+        _intToCharMap = new Dictionary<int, char>();
+        foreach (var (key, value) in _charToIntMap)
+        {
+            _intToCharMap.Add(value, key);
+        }
+        
+        for (var i = 0; i < X; i++)
+        {
+            for (var j = 0; j < Y; j++)
+            {
+                _grid[i, j] = _charToIntMap[initialChar];
+            }
+        }
     }
 
     public Grid2D(IEnumerable<string> input, char[] chars)
@@ -162,5 +183,19 @@ public class Grid2D
     public char[] GetDistinctCharValues()
     {
         return _charToIntMap.Keys.ToArray();
+    }
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        for (var i = 0; i < X; i++)
+        {
+            for (var j = 0; j < Y; j++)
+            {
+                sb.Append(_intToCharMap[_grid[i, j]]);
+            }
+            sb.Append(Environment.NewLine);
+        }
+        return sb.ToString();
     }
 }
